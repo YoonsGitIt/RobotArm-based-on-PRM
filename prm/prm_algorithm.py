@@ -54,10 +54,11 @@ start = np.array([10,100])
 goal = np.array([100,20])
 
 #generate random point
-rand_num = 200
+rand_num = 500
 rand_point = np.zeros((1,2),int)
 rand_point[0] = start
 for i in range(rand_num):
+    np.random.seed(i)
     point = npr.randint(0,110,(1,2))
     if(avoid_obstacle(point)):
         rand_point = np.append(rand_point,point,axis=0)
@@ -84,7 +85,7 @@ for i in range(len(rand_point)):
             t_num = t_num +1
 
 pare = np.delete(pare,(0),axis=0)
-print(pare)
+
 
 #draw the lines
 for i in range(len(pare)):
@@ -129,11 +130,13 @@ while(len(Q) != 0):
     if (iteration > limit_iter):
         break
     min_d = min(U_d[Q])
-    u_idx = np.where(U_d == min_d)
-    u_idx_box = u_idx
-    u_idx = u_idx[0]
+    u_idx_box = np.where(U_d == min_d)
+
+    # u_idx = u_idx[0]
     u_idx = u_idx_box[0][npr.randint(0,len(u_idx_box[0]))]
-    u_idx_pre = u_idx
+    print(u_idx)
+
+    # u_idx_pre = u_idx
     S = np.append(S,[u_idx],axis=0)
     Q = np.setdiff1d(Q,S)
 
